@@ -31,22 +31,23 @@
 </template>
  
 <script lang="ts">
-import { defineComponent } from "vue";
+import Vue from "vue";
 import { mapMutations, mapState } from "vuex";
 import numeroSorteado from "./numero/numero-sorteado.vue";
-export default defineComponent({
+export default Vue.extend({
 	components: { numeroSorteado },
 	data: () => ({ novoNumero: "" }),
 	computed: {
 		
 		novoNumeroValido() {
+			var nNum =  this.novoNumero;
 			let number = <number>new Number(this.novoNumero);
 			return (
 				!isNaN(number) &&
-				this.novoNumero != "" &&
+				nNum != "" &&
 				0 <= number &&
 				number <= 99 &&
-				!this.numeros.includes(this.novoNumero)
+				!this.$store.state.numeros.includes(nNum)
 			);
 		},
 		...mapState(["numeros"])
@@ -55,6 +56,7 @@ export default defineComponent({
 		...mapMutations(["removerNumero"]),
 		criarNovoNumero() {
 			if (this.novoNumeroValido) {
+				this.$store.commit("novoNumero", this.novoNumero);
 				this.novoNumero = "";
 			}
 		},	

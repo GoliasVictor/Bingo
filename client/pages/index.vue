@@ -4,12 +4,14 @@
 		<section-cartela></section-cartela>
 	</main>
 </template>
-<script>
-import SectionCartela from './section-cartela.vue'
-import sectionSorteados from './section-numeros.vue'
-export default {
+<script lang="ts">
+import Vue from 'vue'
+import SectionCartela from '../components/section-cartela.vue'
+import sectionSorteados from '../components/section-numeros.vue'
+
+export default Vue.extend({
 	components: { sectionSorteados, SectionCartela },	
-}
+})
 </script>
 <style >
 	*{
